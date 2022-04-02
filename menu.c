@@ -4,7 +4,7 @@
 
 int menu_opciones(){
     int eleccion;
-   // presentarcion de las opciones
+    // presentarcion de las opciones
     printf("1) Agregar/Quitar un libro nuevo :\n");
     printf("2) Agregar/Quitar una sede (condicion)\n");
     printf("3) Poder editar un libro:\n");
@@ -12,12 +12,13 @@ int menu_opciones(){
     printf("5) Agregar/eliminar seciones (condicion):\n");
     printf("6) Agregar/quitar pisos(condicion) :\n");
     printf("7) Buscar un libro :\n");
+    printf("8) Salir del menu :\n");
     printf("\n");
-    printf("Selecione una opción: ");
+    printf("Selecione una opcion: ");
     scanf("%d", &eleccion);
     printf("\n\n");
-    
-  return eleccion; 
+
+    return eleccion;
 }
 
 void agregar_quitar(void){
@@ -94,36 +95,39 @@ void buscarlibro(){
 }
 
 void sub_menu(int eleccion){
-      int eleccion2;
-      switch (eleccion)
+    int eleccion2;
+    switch (eleccion)
     {
-      case 1:
-        agregar_quitar();
-        break;
-      case 2:
-        sede();
-        break;
-      case 3:
-        editar();
-        break;
-      case 4:
-        cambiar();
-        break;
-      case 5:
-        seccion();
-        break;
-      case 6:
-        piso();
-        break;
-      case 7:
-        buscarlibro();
-        break;
-      default:
-        // solo si el usuario ingresa una opcion que no este comtemplada
-        printf("Ingresar un numero que este en la lista\n\n");
-        
+        case 1:
+            agregar_quitar();
+            break;
+        case 2:
+            sede();
+            break;
+        case 3:
+            editar();
+            break;
+        case 4:
+            cambiar();
+            break;
+        case 5:
+            seccion();
+            break;
+        case 6:
+            piso();
+            break;
+        case 7:
+            buscarlibro();
+            break;
+        case 8:
+            printf("saliste del  menu");
+            break;
+        default:
+            // solo si el usuario ingresa una opcion que no este comtemplada
+            printf("Ingresar un numero que este en la lista\n\n");
+
     }
-    
+
 }
 
 int main()
