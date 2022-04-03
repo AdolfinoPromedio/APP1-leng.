@@ -3,222 +3,102 @@
 #include <string.h>
 #include "libro.h"
 
-//Menú
-
-int menu_opciones(){
-    int eleccion;
-    // presentarcion de las opciones
-    printf("1) Agregar/Quitar un libro nuevo :\n");
-    printf("2) Agregar/Quitar una sede (condicion)\n");
-    printf("3) Poder editar un libro:\n");
-    printf("4) Cambiar un libro de sede/sección/piso:\n");
-    printf("5) Agregar/eliminar seciones (condicion):\n");
-    printf("6) Agregar/quitar pisos(condicion) :\n");
-    printf("7) Buscar un libro :\n");
-    printf("8) Salir del menu :\n");
-    printf("\n");
-    printf("Selecione una opcion: ");
-    scanf("%d", &eleccion);
-    printf("\n\n");
-
-    return eleccion;
-}
-
-void agregar_quitar(void){
-    int eleccion;
-    printf("Seleciona si desea agregar (1) o quitar (2) un libro: ");
-    //el usuario debe ingresar una de las opciones
-    scanf("%d", &eleccion);
-    if(eleccion==1){
-        printf("Agregar libro\n\n");
-    }
-    else if(eleccion==2){
-        printf("Quitar libro\n\n");
-    }
-}
-
-void sede(void){
-    int eleccion;
-    printf("Seleciona si desea agregar (1) o quitar(2) una sede (condicion): ");
-    //el usuario debe ingresar una de las opciones
-    scanf("%d", &eleccion);
-    if(eleccion==1){
-        printf("Agregar sede\n\n");
-    }
-    else if(eleccion==2){
-        printf("Quitar sede\n\n");
-    }
-}
-
-void editar(){
-    printf("Editar un libro: \n");
-}
-
-void cambiar(){
-    int accion;
-    printf("Seleciona si desea cambiar un libro de sede(1)/sección(2)/piso(3): ");
-    scanf("%d", &accion);
-    if(accion==1){
-        printf("Cambiar sede \n\n");
-    }
-    else if(accion==2){
-        printf("Cambiar sección \n\n");
-    }
-    else if (accion==3){
-        printf("Cambiar piso \n\n");
-    }
-}
-
-void seccion(){
-    int accion;
-    printf("Seleciona si agregar (1) o quitar (2) secciones (condicion): \n");
-    scanf("%d", &accion);
-    if(accion==1){
-        printf("Agregar seciones\n\n");
-    }
-    else if(accion==2){
-        printf("Quitar seciones\n\n");
-    }
-}
-
-void piso(){
-    int accion;
-    printf("Seleciona si agregar (1) o quitar (2) piso (condicion): \n");
-    scanf("%d", &accion);
-    if(accion==1){
-        printf("Agregar seciones\n\n");
-    }
-    else if(accion==2){
-        printf("Quitar seciones\n\n");
-    }
-}
-
-void buscarlibro(){
-    printf("Buscar un libro: \n");
-}
-
-void sub_menu(int eleccion){
-    int eleccion2;
-    switch (eleccion)
-    {
-        case 1:
-            agregar_quitar();
-            break;
-        case 2:
-            sede();
-            break;
-        case 3:
-            editar();
-            break;
-        case 4:
-            cambiar();
-            break;
-        case 5:
-            seccion();
-            break;
-        case 6:
-            piso();
-            break;
-        case 7:
-            buscarlibro();
-            break;
-        case 8:
-            printf("saliste del  menu");
-            break;
-        default:
-            // solo si el usuario ingresa una opcion que no este comtemplada
-            printf("Ingresar un numero que este en la lista\n\n");
-
-    }
-
-}
-
 // Acciones
 
-void edit(libro dato[]){
+void edit(libro dato[], int cantidad){
     char titulo[60];
-    char ret;
+    char *ret;
     int campo;
     char str[2] = "\n";
+    int decision;
+    int key = 0;
     printf("\n¿Qué libro desea modificar?: ");
     scanf("%s", &titulo);
-    for (int i=1; i<10; i++){
+    for (int i=1; i<cantidad+1; i++){
         ret = strstr(dato[i].titulo, titulo);
         if (ret){
-            printf("\n¿Qué campo desea modificar? \n");
-            printf("\n(1) Título\n");
-            printf("(2) Autor\n");
-            printf("(3) Año\n");
-            printf("(4) Número de estante\n");
-            printf("(5) Sección\n");
-            printf("(6) Piso\n");
-            printf("(7) Edificio\n");
-            printf("(8) Sede\n");
-            printf("\nIngrese opción: ");
-            scanf("%d", &campo);
-            if (campo==1){
-                char new_title[60];
-                printf("\nIngrese nuevo título: ");
-                scanf("%s", &new_title);
-                strcpy(dato[i].titulo, new_title);
-            }
-            else if (campo==2){
-                char new_autor[60];
-                printf("\nIngrese nuevo autor: ");
-                scanf("%s", &new_autor);
-                strcpy(dato[i].autor, new_autor);
-            }
-            else if (campo==3){
-                char new_ano[60];
-                printf("\nIngrese nuevo año: ");
-                scanf("%s", &new_ano);
-                dato[i].ano = atoi(new_ano);
-            }
-            else if (campo==4){
-                char new_estante[60];
-                printf("\nIngrese nuevo número de estante: ");
-                scanf("%s", &new_estante);
-                dato[i].estante_numero = atoi(new_estante);
-            }
-            else if (campo==5){
-                char new_sec[60];
-                printf("\nIngrese nueva sección: ");
-                scanf("%s", &new_sec);
-                strcpy(dato[i].estante_seccion, new_sec);
-            }
-            else if (campo==6){
-                char new_piso[60];
-                printf("\nIngrese nuevo número de piso: ");
-                scanf("%s", &new_piso);
-                dato[i].piso = atoi(new_piso);
-            }
-            else if (campo==7){
-                char new_edificio[60];
-                printf("\nIngrese nuevo edificio: ");
-                scanf("%s", &new_edificio);
-                strcpy(dato[i].edificio, new_edificio);
-            }
-            else if (campo==8){
-                char new_sede[60];
-                printf("\nIngrese nueva sede: ");
-                scanf("%s", &new_sede);
-                strncat(new_sede, &str, 2);
-                strcpy(dato[i].sede, new_sede);
+            while(key==0){
+                printf("\n¿Qué campo desea modificar? \n");
+                printf("\n(1) Título\n");
+                printf("(2) Autor\n");
+                printf("(3) Año\n");
+                printf("(4) Número de estante\n");
+                printf("(5) Sección\n");
+                printf("(6) Piso\n");
+                printf("(7) Edificio\n");
+                printf("(8) Sede\n");
+                printf("\nIngrese opción: ");
+                scanf("%d", &campo);
+                if (campo==1){
+                    char new_title[60];
+                    printf("\nIngrese nuevo título: ");
+                    scanf("%s", &new_title);
+                    strcpy(dato[i].titulo, new_title);
+                }
+                else if (campo==2){
+                    char new_autor[60];
+                    printf("\nIngrese nuevo autor: ");
+                    scanf("%s", &new_autor);
+                    strcpy(dato[i].autor, new_autor);
+                }
+                else if (campo==3){
+                    char new_ano[60];
+                    printf("\nIngrese nuevo año: ");
+                    scanf("%s", &new_ano);
+                    dato[i].ano = atoi(new_ano);
+                }
+                else if (campo==4){
+                    char new_estante[60];
+                    printf("\nIngrese nuevo número de estante: ");
+                    scanf("%s", &new_estante);
+                    dato[i].estante_numero = atoi(new_estante);
+                }
+                else if (campo==5){
+                    char new_sec[60];
+                    printf("\nIngrese nueva sección: ");
+                    scanf("%s", &new_sec);
+                    strcpy(dato[i].estante_seccion, new_sec);
+                }
+                else if (campo==6){
+                    char new_piso[60];
+                    printf("\nIngrese nuevo número de piso: ");
+                    scanf("%s", &new_piso);
+                    dato[i].piso = atoi(new_piso);
+                }
+                else if (campo==7){
+                    char new_edificio[60];
+                    printf("\nIngrese nuevo edificio: ");
+                    scanf("%s", &new_edificio);
+                    strcpy(dato[i].edificio, new_edificio);
+                }
+                else if (campo==8){
+                    char new_sede[60];
+                    printf("\nIngrese nueva sede: ");
+                    scanf("%s", &new_sede);
+                    strncat(new_sede, &str, 2);
+                    strcpy(dato[i].sede, new_sede);
+                }
+                int decision;
+                printf("\nDesea modificar nuevamente? (si [1] /no [2]): ");
+                scanf("%d", &decision);
+                if(decision==2){
+                    key++;
+                }
             }
         }
     }
 }
 
-void search_change(libro dato[], int cambio){
+void search_change(libro dato[], int cambio, int cantidad){
     char titulo[60];
-    char ret;
+    char *ret;
     char sede[60];
     char sec[60];
     char piso[20];
     char str[2] = "\n";
     printf("\nIngrese título del libro: ");
     scanf("%s", &titulo);
-    for (int i=1; i<10; i++){
+    for (int i=1; i<cantidad+1; i++){
         ret = strstr(dato[i].titulo, titulo);
         if (ret){
             if (cambio == 1){
@@ -241,31 +121,31 @@ void search_change(libro dato[], int cambio){
     }
 }
 
-void change(libro dato[]){
+void change(libro dato[], int eleccion2, int cantidad){
     int cambio;
     char libro[60];
-    printf("\n¿Qué desea cambiar? Sede (1) - Sección (2) - Piso (3): ");
-    scanf("%d", &cambio);
-    if (cambio == 1){
+    //printf("\n¿Qué desea cambiar? Sede (1) - Sección (2) - Piso (3): ");
+    //scanf("%d", &cambio);
+    if (eleccion2 == 1){
         //Cambiar SEDE
-        search_change(dato, cambio);
+        search_change(dato, eleccion2, cantidad);
     }
-    else if (cambio == 2){
+    else if (eleccion2 == 2){
         //Cambiar SECCIÓN
-        search_change(dato, cambio);
+        search_change(dato, eleccion2, cantidad);
     }
-    else if (cambio == 3){
+    else if (eleccion2 == 3){
         //Cambiar PISO
-        search_change(dato, cambio);
+        search_change(dato, eleccion2, cantidad);
     }
 }
 
-void find(libro dato[]){
+void find(libro dato[], int cantidad){
     char titulo[60];
-    char ret;
+    char *ret;
     printf("\nIngrese título del libro: ");
     scanf("%s", &titulo);
-    for (int i=1; i<10; i++){
+    for (int i=1; i<cantidad+1; i++){
         ret = strstr(dato[i].titulo, titulo);
         if (ret){
             printf("\nLibro: %s\n", dato[i].titulo);
@@ -321,10 +201,10 @@ void agregar_libro(libro dato[], int cantidad){
 
 void eliminar_libro(libro dato[], int cantidad){
     char titulo[60];
-    char ret;
+    char *ret;
     printf("\n¿Qué libro desea eliminar?: ");
     scanf("%s", &titulo);
-    for (int i=1; i<10; i++){
+    for (int i=0; i<cantidad+1; i++){
         ret = strstr(dato[i].titulo, titulo);
         if (ret){
             dato[i].nro = 0;
@@ -342,6 +222,186 @@ void eliminar_libro(libro dato[], int cantidad){
 
 //-------------------------------------------------------------------
 
+//Menú
+
+int menu_opciones(){
+    int eleccion;
+    // presentarcion de las opciones
+    printf("1) Agregar/Quitar un libro nuevo :\n");
+    printf("2) Agregar/Quitar una sede (condicion)\n");
+    printf("3) Poder editar un libro:\n");
+    printf("4) Cambiar un libro de sede/sección/piso:\n");
+    printf("5) Agregar/eliminar seciones (condicion):\n");
+    printf("6) Agregar/quitar pisos(condicion) :\n");
+    printf("7) Buscar un libro :\n");
+    printf("8) Salir del menu :\n");
+    printf("\n");
+    printf("Selecione una opcion: ");
+    scanf("%d", &eleccion);
+    printf("\n\n");
+
+    return eleccion;
+}
+
+void agregar_quitar(libro dato[], int cantidad){
+
+    int eleccion;
+    printf("Seleciona si desea agregar (1) o quitar (2) un libro: ");
+    scanf("%d", &eleccion);
+
+    if(eleccion==1){
+        printf("Agregar libro\n\n");
+        agregar_libro(dato, cantidad);
+    }
+    else if(eleccion==2){
+        printf("Quitar libro\n\n");
+        eliminar_libro(dato, cantidad);
+    }
+}
+
+void sede(libro dato[], int cantidad){
+    int eleccion;
+    int eleccion2;
+    printf("Seleciona si desea agregar (1) o quitar(2) una sede: ");
+    //el usuario debe ingresar una de las opciones
+    scanf("%d", &eleccion);
+    if(eleccion==1){
+        printf("Desea añadir una sede añadiendo un libro (1) o cambiando la sede de un libro (2): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            agregar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 1, cantidad);
+        }
+    }
+    else if(eleccion==2){
+        printf("Desea quitar una sede quitando un libro (1), cambiando la sede de un libro (2), o eliminando todos los libros con esa sede (3): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            eliminar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 1, cantidad);
+        }
+        if(eleccion2==3){
+            printf("Wn loco");
+        }
+    }
+}
+
+void editar(libro dato[], int cantidad){
+    edit(dato, cantidad);
+}
+
+void cambiar(libro dato[], int cantidad){
+    int accion;
+    printf("Seleciona si desea cambiar un libro de sede(1)/sección(2)/piso(3): ");
+    scanf("%d", &accion);
+    change(dato, accion, cantidad);
+    }
+
+void seccion(libro dato[], int cantidad){
+    int eleccion;
+    int eleccion2;
+    printf("Seleciona si agregar (1) o quitar (2) secciones (condicion): \n");
+    scanf("%d", &eleccion);
+    if(eleccion==1){
+        printf("Desea añadir una seccion añadiendo un libro (1) o cambiando la seccion de un libro (2): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            agregar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 2, cantidad);
+        }
+    }
+    else if(eleccion==2){
+        printf("Desea quitar una sede quitando un libro (1), cambiando la seccion de un libro (2), o eliminando todos los libros con esa seccion (3): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            eliminar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 2, cantidad);
+        }
+        if(eleccion2==3){
+            printf("Wn loco");
+        }
+    }
+}
+
+void piso(libro dato[], int cantidad){
+    int eleccion;
+    printf("Seleciona si agregar (1) o quitar (2) piso (condicion): \n");
+    scanf("%d", &eleccion);
+    int eleccion2;
+    if(eleccion==1){
+        printf("Desea añadir un piso añadiendo un libro (1) o cambiando el piso de un libro (2): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            agregar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 3, cantidad);
+        }
+    }
+    else if(eleccion==2){
+        printf("Desea quitar una sede quitando un libro (1), cambiando la sede de un libro (2), o eliminando todos los libros con esa sede (3): ");
+        scanf("%d", &eleccion2);
+        if(eleccion2==1){
+            eliminar_libro(dato, cantidad);
+        }
+        if(eleccion2==2){
+            change(dato, 3, cantidad);
+        }
+        if(eleccion2==3){
+            printf("Wn loco");
+        }
+    }
+}
+
+void buscarlibro(libro dato[], int cantidad){
+    find(dato, cantidad);
+}
+
+void sub_menu(int eleccion, libro dato[], int cantidad){
+    switch (eleccion)
+    {
+        case 1:
+            agregar_quitar(dato, cantidad);
+            break;
+        case 2:
+            sede(dato, cantidad);
+            break;
+        case 3:
+            editar(dato, cantidad);
+            break;
+        case 4:
+            cambiar(dato, cantidad);
+            break;
+        case 5:
+            seccion(dato, cantidad);
+            break;
+        case 6:
+            piso(dato, cantidad);
+            break;
+        case 7:
+            buscarlibro(dato, cantidad);
+            break;
+        case 8:
+            printf("Saliste del  menu");
+            break;
+        default:
+            // solo si el usuario ingresa una opcion que no este comtemplada
+            printf("Ingresar un numero que esté en la lista\n\n");
+
+    }
+
+}
+
+//-------------------------------------------------------------------
+
 // Funciones y procedimientos base
 //-------------------------------------------------------------------
 
@@ -355,7 +415,7 @@ int cantidad_libros(FILE *the_file){
 }
 
 void printValues(libro dato[],int cantidad){
-    for (int i=1; i<cantidad; i++){
+    for (int i=1; i<cantidad+2; i++){
         printf("\n%d, %s; %s, %d, %d, %s, %d, %s, %s", dato[i].nro,dato[i].titulo, dato[i].autor, dato[i].ano, dato[i].estante_numero, dato[i].estante_seccion, dato[i].piso, dato[i].edificio, dato[i].sede);
     }
 }
@@ -373,9 +433,9 @@ FILE * closingFile(char *filename){
 }
 
 void reewrite(FILE *the_file, libro dato[], int cantidad){
-    fprintf(the_file, "titulo,autor,ano,estante_numero,estante_seccion,piso,edificio,sede");
-    for (int i=1; i<cantidad+1; i++){
-        fprintf(the_file, "\n%d, %s; %s, %d, %d, %s, %d, %s, %s", dato[i].nro,dato[i].titulo, dato[i].autor, dato[i].ano, dato[i].estante_numero, dato[i].estante_seccion, dato[i].piso, dato[i].edificio, dato[i].sede);
+    fprintf(the_file, "titulo,autor,anio,estante_numero,estante_seccion,piso,edificio,sede\n");
+    for (int i=1; i<cantidad+2; i++){
+        fprintf(the_file, "%s; %s, %d, %d, %s, %d, %s, %s",dato[i].titulo, dato[i].autor, dato[i].ano, dato[i].estante_numero, dato[i].estante_seccion, dato[i].piso, dato[i].edificio, dato[i].sede);
     }
     fclose(the_file);
 }
@@ -461,12 +521,11 @@ void showContentAsStruct(FILE *the_file, int cantidad, char* filename){
     }
     libro *dato = getLibros(the_file);
 
-    //agregar_libro(dato, cantidad);
-    //eliminar_libro(dato, cantidad);
-    printValues(dato);
+    int valor_menu = menu_opciones();
+    sub_menu(valor_menu, dato, cantidad);
 
-    //FILE *inventario = closingFile(filename);
-    //reewrite(inventario, dato);
+    FILE *inventario = closingFile(filename);
+    reewrite(inventario, dato, cantidad);
 }
 
 //-------------------------------------------------------------------
@@ -475,11 +534,15 @@ int main() {
 
     FILE *the_file = openingFile("inventario.csv");
     FILE *the_file2 = openingFile("inventario.csv");
+    int bucle = 1;
+
 
     int a = cantidad_libros(the_file);
-    printf("%d", a);
-
     showContentAsStruct(the_file2, a, "inventario.csv");
+    int fin;
+    //printf("\nHecho. (1) Si desea realizar otra acción, cualquier otro si desea salir.");
+    //scanf("%d", &bucle);
+
 
     return 0;
 }
